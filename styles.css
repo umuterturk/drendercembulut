@@ -77,6 +77,32 @@ a:focus {
     }
 }
 
+/* Performance optimizations */
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Critical rendering path optimization */
+.above-fold {
+    will-change: transform;
+}
+
+/* Image optimization */
+img {
+    max-width: 100%;
+    height: auto;
+    loading: lazy;
+    decoding: async;
+}
+
+/* Font display optimization */
+@font-face {
+    font-family: 'Inter';
+    font-display: swap;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;

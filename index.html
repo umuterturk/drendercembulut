@@ -35,11 +35,17 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="manifest.json">
+    
+    <!-- Additional PWA meta tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Dr. Ender Cem Bulut">
+    <meta name="msapplication-TileColor" content="#2563eb">
+    <meta name="msapplication-config" content="browserconfig.xml">
 
-    <!-- Stylesheets -->
+    <!-- Critical CSS -->
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -93,10 +99,18 @@
     }
     </script>
     
-    <!-- Preconnect for performance -->
+    <!-- Performance optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://avesis.gazi.edu.tr">
+    <link rel="dns-prefetch" href="https://docs.google.com">
+    
+    <!-- Resource hints -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
 </head>
 <body>
     <!-- Skip Navigation Links -->
@@ -148,7 +162,10 @@
                 <div class="doctor-photo">
                     <img src="https://avesis.gazi.edu.tr/user/image/100150" 
                          alt="Doç. Dr. Ender Cem Bulut" 
-                         loading="lazy"
+                         loading="eager"
+                         fetchpriority="high"
+                         width="300"
+                         height="300"
                          onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;doctor-placeholder&quot;><i class=&quot;fas fa-user-md&quot;></i></div>';">
                 </div>
             </div>
@@ -424,6 +441,10 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
+    
+    <!-- Analytics placeholder -->
+    <!-- Add Google Analytics or other analytics here -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script> -->
 </body>
 </html>

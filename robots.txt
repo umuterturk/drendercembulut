@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://umuterturk.github.io/drendercembulut/sitemap.xml
+
+# Medical website - allow all crawlers
+# Optimized for medical professional SEO

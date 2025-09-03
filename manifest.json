@@ -1,0 +1,21 @@
+{
+  "name": "Doç. Dr. Ender Cem Bulut - Üroloji Uzmanı",
+  "short_name": "Dr. Ender Cem Bulut",
+  "description": "Gazi Üniversitesi Tıp Fakültesi Üroloji Uzmanı - Robotik Cerrahi, Lazer Tedavileri, Minimal İnvaziv Cerrahi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "categories": ["medical", "health", "doctor"],
+  "lang": "tr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "https://avesis.gazi.edu.tr/user/image/100150",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
