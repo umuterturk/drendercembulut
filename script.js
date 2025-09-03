@@ -13,6 +13,7 @@ class LanguageSwitcher {
     }
 
     bindEvents() {
+        // Desktop language buttons
         const langButtons = document.querySelectorAll('.lang-btn');
         langButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -29,19 +30,54 @@ class LanguageSwitcher {
                 }
             });
         });
+        
+        // Mobile language buttons
+        const mobileLangButtons = document.querySelectorAll('.mobile-lang-btn');
+        mobileLangButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const lang = e.target.id.split('-')[2]; // mobile-lang-en -> en
+                this.setLanguage(lang);
+                // Close mobile menu after language selection
+                this.closeMobileMenu();
+            });
+            
+            // Keyboard support
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const lang = e.target.id.split('-')[2];
+                    this.setLanguage(lang);
+                    // Close mobile menu after language selection
+                    this.closeMobileMenu();
+                }
+            });
+        });
     }
 
     setLanguage(lang) {
         this.currentLanguage = lang;
         
-        // Update button states and ARIA attributes
+        // Update desktop button states and ARIA attributes
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.remove('active');
             btn.setAttribute('aria-pressed', 'false');
         });
         const activeBtn = document.getElementById(`lang-${lang}`);
-        activeBtn.classList.add('active');
-        activeBtn.setAttribute('aria-pressed', 'true');
+        if (activeBtn) {
+            activeBtn.classList.add('active');
+            activeBtn.setAttribute('aria-pressed', 'true');
+        }
+        
+        // Update mobile button states and ARIA attributes
+        document.querySelectorAll('.mobile-lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-pressed', 'false');
+        });
+        const activeMobileBtn = document.getElementById(`mobile-lang-${lang}`);
+        if (activeMobileBtn) {
+            activeMobileBtn.classList.add('active');
+            activeMobileBtn.setAttribute('aria-pressed', 'true');
+        }
 
         // Update content
         const elements = document.querySelectorAll('[data-en][data-tr]');
@@ -98,6 +134,17 @@ class LanguageSwitcher {
         
         // Update Open Graph meta tags dynamically for sharing
         this.updateMetaTags(lang);
+    }
+    
+    closeMobileMenu() {
+        // Find and close mobile navigation if it exists
+        const mobileNav = document.querySelector('.nav-menu');
+        const hamburger = document.querySelector('.hamburger');
+        if (mobileNav && hamburger) {
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+        }
     }
 
     updateMetaTags(lang) {
@@ -306,13 +353,30 @@ class FormHandler {
         const phone = this.form.querySelector('input[name="entry.1627089863"]').value.trim();
         const service = this.form.querySelector('select[name="entry.2122743812"]').value;
 
-        if (!name || !email || !phone || !service) {
-            this.showErrorMessage('Please fill in all required fields.');
+        // Name is required
+        if (!name) {
+            const message = this.currentLanguage === 'tr' ? 
+                'Ad Soyad gereklidir. Lütfen tam adınızı girin.' : 
+                'Name is required. Please enter your full name.';
+            this.showErrorMessage(message);
             return false;
         }
 
-        if (!this.isValidEmail(email)) {
-            this.showErrorMessage('Please enter a valid email address.');
+        // Phone is required
+        if (!phone) {
+            const message = this.currentLanguage === 'tr' ? 
+                'Telefon numarası gereklidir. Lütfen telefon numaranızı girin.' : 
+                'Phone number is required. Please enter your phone number.';
+            this.showErrorMessage(message);
+            return false;
+        }
+
+        // Email validation (if provided)
+        if (email && !this.isValidEmail(email)) {
+            const message = this.currentLanguage === 'tr' ? 
+                'Lütfen geçerli bir e-posta adresi girin.' : 
+                'Please enter a valid email address.';
+            this.showErrorMessage(message);
             return false;
         }
 
